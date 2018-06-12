@@ -16,9 +16,9 @@ Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 }
 
-Account.prototype.fullAccount = function() {
-  return this.maybeName + ", " + this.initialDeposit + ", " + this.depositAmount + ", " + this.withdrawalAmount ;
-}
+// Account.prototype.fullAccount = function() {
+//   return this.maybeName + ", " + this.initialDeposit + ", " + this.depositAmount + ", " + this.withdrawalAmount ;
+// }
 
 // user interface logic
 $(document).ready(function() {
@@ -47,11 +47,11 @@ $(document).ready(function() {
     var inputtedLastName = $("input#new-last-name").val();
     var newContact = new Contact(inputtedFirstName, inputtedLastName);
 
-    $(".new-address").each(function() {
+    $(".new-account").each(function() {
       var inputtedStreet = $(this).find("input.new-street").val();
       var inputtedCity = $(this).find("input.new-city").val();
       var inputtedState = $(this).find("input.new-state").val();
-      var newAddress = new Address(inputtedStreet, inputtedCity, inputtedState)
+      var newAddress = new Account(inputtedStreet, inputtedCity, inputtedState)
       newContact.addresses.push(newAddress)
     });
 
