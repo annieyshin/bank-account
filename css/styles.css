@@ -1,0 +1,28 @@
+/*#show-account-info{
+  display: none;
+}*/
+
+
+
+.contact {
+  cursor: pointer;
+  color: purple;
+}
+
+.contact:hover {
+  text-decoration: underline;
+}
+
+
+body {
+  background-color: beige;
+  color: orange;
+}
+
+h1 {
+  color: teal;
+}
+
+h2 {
+color: black; 
+}

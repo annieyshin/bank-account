@@ -1,12 +1,12 @@
-//business logic
+//Business Logic
 function Contact(first, last) {
   this.firstName = first;
   this.lastName = last;
-  this.addresses = [];
+  this.accountInfo = [];
 }
 
 function Account(maybeName, initialDeposit, depositAmount, withdrawalAmount) {
-  this.maybeName = maybeName;
+  // this.maybeName = maybeName;
   this.initialDeposit = initialDeposit;
   this.depositAmount = depositAmount;
   this.withdrawalAmount = withdrawalAmount;
@@ -16,12 +16,27 @@ Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 }
 
-// Account.prototype.fullAccount = function() {
-//   return this.maybeName + ", " + this.initialDeposit + ", " + this.depositAmount + ", " + this.withdrawalAmount ;
-// }
+Account.prototype.fullAccount = function() {
+  return
+  // this.maybeName + ": " +
+  this.initialDeposit + ", " + this.depositAmount + ", " + this.withdrawalAmount ;
+}
 
 // user interface logic
 $(document).ready(function() {
+
+  $("#add-account").click(function() {
+  $("#new-account").append('<div class="new-account-class">' +
+                               '<div class="form-group">' +
+                                 '<label for="deposit-amount-label">Deposit Amount</label>' +
+                                 '<input type="text" class="form-control deposit-amount">' +
+                               '</div>' +
+                               '<div class="form-group">' +
+                                 '<label for="withdrawal-amount-label">Withdrawal Amount</label>' +
+                                 '<input type="text" class="form-control withdrawal-amount">' +
+                               '</div>' +
+                             '</div>');
+});
 
   $("form#new-contact").submit(function(event) {
     event.preventDefault();
@@ -31,23 +46,27 @@ $(document).ready(function() {
     var newContact = new Contact(inputtedFirstName, inputtedLastName);
 
     $(".new-account").each(function() {
-      var inputtedInitialDeposit = $(this).find("input.initial-deposit-amount").val();
-      var inputtedDepositAmount = $(this).find("input.deposit-amount").val();
-      var inputtedWithdrawalAmount = $(this).find("input.withdrawal-amount").val();
+      var inputtedInitialDeposit = parseInt($(this).find("input.initial-deposit-amount").val());
+      var inputtedDepositAmount = parseInt($(this).find("input.deposit-amount").val());
+      var inputtedWithdrawalAmount = parseInt($(this).find("input.withdrawal-amount").val());
       var newAccount = new Account(inputtedInitialDeposit, inputtedDepositAmount, inputtedWithdrawalAmount)
-      newAccount.Account.push(newAccount)
+      newAccount.accountInfo.push(newAccount)
+      console.log(initialDeposit)
     });
 
-    $("ul#contacts").append("<li><span class='contact'>" + newContact.fullName() + "</span></li>");
+    $("ul#account-holder-info").append("<li><span class='contact'>" + newContact.fullName() + "</span></li>");
+
+
+
 
     $(".contact").last().click(function() {
-      $("#show-contact").show();
-      $("#show-contact h2").text(newContact.fullName());
+      $("#show-account-info").show();
+      $("#show-account-info h2").text(newContact.fullName());
       $(".first-name").text(newContact.firstName);
       $(".last-name").text(newContact.lastName);
-      $("ul#addresses").text("");
-      newContact.addresses.forEach(function(address) {
-        $("ul#addresses").append("<li>" + address.fullAddress() + "</li>");
+      $("ul#account-holder-info").text("");
+      newContact.accountInfo.forEach(function(zaccount) {
+        $("ul#currentBalance").append("<li>" + zaccount.fullAccount() + "</li>");
       });
     });
 
