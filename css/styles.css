@@ -1,6 +1,10 @@
-/*#show-account-info{
+#show-account-info{
   display: none;
-}*/
+}
+
+.container {
+  background-color: lightblue;
+}
 
 
 
@@ -15,8 +19,8 @@
 
 
 body {
-  background-color: beige;
-  color: orange;
+  /*background-color: beige;*/
+  color: maroon;
 }
 
 h1 {
@@ -24,5 +28,9 @@ h1 {
 }
 
 h2 {
-color: black; 
+color: black;
+}
+
+#catbalance {
+  display: none;
 }

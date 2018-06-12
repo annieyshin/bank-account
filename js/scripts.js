@@ -5,35 +5,31 @@ function Contact(first, last) {
   this.accountInfo = [];
 }
 
-function Account(initialDeposit, depositAmount, withdrawalAmount) {
+function initialMoneyBalance (initialDeposit) {
   this.initialDeposit = initialDeposit;
+}
+
+function Account(depositAmount, withdrawalAmount, balance) {
+  // this.initialDeposit = initialDeposit;
   this.depositAmount = depositAmount;
   this.withdrawalAmount = withdrawalAmount;
+  this.balanace = balance;
 }
 
 Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 }
 
-Account.prototype.fullAccount = function() {
-  return this.initialDeposit + ", " + this.depositAmount + ", " + this.withdrawalAmount;
+Account.prototype.balance = function() {
+  return "Your balance is: " + this.balance;
 }
+
+// Account.prototype.fullAccount = function() {
+//   return this.initialDeposit + ", " + this.depositAmount + ", " + this.withdrawalAmount;
+// }
 
 // user interface logic
 $(document).ready(function() {
-
-  $("#add-account").click(function() {
-  $("#new-account").append('<div class="new-account-class">' +
-                               '<div class="form-group">' +
-                                 '<label for="deposit-amount-label">Deposit Amount</label>' +
-                                 '<input type="text" class="form-control deposit-amount">' +
-                               '</div>' +
-                               '<div class="form-group">' +
-                                 '<label for="withdrawal-amount-label">Withdrawal Amount</label>' +
-                                 '<input type="text" class="form-control withdrawal-amount">' +
-                               '</div>' +
-                             '</div>');
-});
 
   $("form#new-contact").submit(function(event) {
     event.preventDefault();
@@ -43,12 +39,14 @@ $(document).ready(function() {
     var newContact = new Contact(inputtedFirstName, inputtedLastName);
     console.log("stepone");
     $(".new-account-class").each(function() {
-      var inputtedInitialDeposit = $(this).find("input#apple").val();
-      console.log(inputtedInitialDeposit);
-
-      var inputtedDepositAmount = $(this).find("input.deposit-amount").val();
-      var inputtedWithdrawalAmount = $(this).find("input.withdrawal-amount").val();
-      var newAccount = new Account(inputtedInitialDeposit, inputtedDepositAmount, inputtedWithdrawalAmount)
+      var beginningMoneyBalance = parseInt($(this).find("input#apple").val());
+      console.log(beginningMoneyBalance);
+      var inputtedDepositAmount = parseInt($(this).find("input.deposit-amount").val());
+      var inputtedWithdrawalAmount = parseInt($(this).find("input.withdrawal-amount").val());
+      var newAccount = new Account(
+        // inputtedInitialDeposit,
+        inputtedDepositAmount, inputtedWithdrawalAmount)
+      // var beginningMoneyBalance = parseInt($(this).find("input.initial-deposit-amount").val());
       newContact.accountInfo.push(newAccount)
       // changed newAccount to newContact
     });
@@ -60,12 +58,13 @@ $(document).ready(function() {
 
     $(".contact").last().click(function() {
       $("#show-account-info").show();
-      $("#show-account-info h2").text(newContact.fullName());
+      // $("#show-account-info h2").text(newContact.fullName());
       $(".first-name").text(newContact.firstName);
       $(".last-name").text(newContact.lastName);
       $("ul#currentBalance").text("");
       newContact.accountInfo.forEach(function(zaccount) {
-        $("ul#currentBalance").append("<li>" + zaccount.fullAccount() + "</li>");
+        $("ul#currentBalance").append("<li>" + zaccount.balance() + "</li>");
+        $("#catbalance").show();
       });
     });
 
@@ -79,5 +78,4 @@ $(document).ready(function() {
 
   });
 // $( "#new-addresses" ).not( "submit" ).fadeOut();
-
 });
